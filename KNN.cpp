@@ -54,7 +54,12 @@ int KNN::runNeighbors() {
     int x = input.size();
     int y = types.size();
     int numInKNearest = 0;
-    double kNearest[k][2] = {};
+    std::vector<std::vector<double>> kNearest;
+    for (int j = 0; j < k; j++) {
+        std::vector<double> vec(2, 0);
+        kNearest.push_back(vec);
+    }
+    //double kNearest[k][2] = {};
     std::vector<double> subVector;
     while (!classified[i].empty()) {
         subVector = {classified[i].begin(), classified[i].end() - 1};
@@ -94,14 +99,15 @@ int KNN::runNeighbors() {
         }
         i += 1;
     }
-    int count[y] = {};
+    //int count[y] = {};
+    std::vector<int> count(y, 0);
     for (int j = 0; j < k; j++) {
         int a = int(kNearest[j][0]);
         count[a] += 1;
     }
     int maxIndex = 0;
     for (int j = 0; j < k; j++) {
-        if (count[j] > count[maxIndex] {
+        if (count[j] > count[maxIndex]) {
             maxIndex = j;
         }
     }
