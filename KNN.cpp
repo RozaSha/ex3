@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <map>
 #include <iterator>
-#include "distances.h"
+#include "Distances.h"
 
 
 /**
@@ -28,23 +28,24 @@ KNN::KNN(int kValue, std::string disType, std::vector<double> inputK, std::vecto
 double KNN::distance(std::vector<double> v1, std::vector<double> v2, std::string distanceType) {
     //Do I check the inputs here or in the distances file? need to check if numeric and the same size.
     double distance;
+    Distances d(v1, v2);
     if (distanceType == "AUC") {
-        distance = distances.euclideanDistance(v1, v2);
+        distance = d.euclideanDistance();
     }
     if (distanceType == "MAN") {
-        distance = distances.manhattanDistance(v1, v2);
+        distance = d.manhattanDistance();
     }
     if (distanceType == "CHB") {
-        distance = distances.chebyshevDistance(v1, v2);
+        distance = d.chebyshevDistance();
     }
     if (distanceType == "CAN") {
-        distance = distances.canberraDistance(v1, v2);
+        distance = d.canberraDistance();
         if (distance == -1) {
             // throw error
         }
     }
     if (distanceType == "MIN") {
-        distance = distances.minkowskiDistance(v1, v2, 3);
+        distance = d.minkowskiDistance(3);
     }
     return distance;
 }
