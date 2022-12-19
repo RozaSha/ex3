@@ -93,6 +93,12 @@ int KNN::runNeighbors(std::vector<double> input) {
     return maxIndex;
 }
 
+/**
+ * function get vector of vectors and vector x, insert the new vector and sort x.
+ * @param x vector to insert to y.
+ * @param y vector of vectors.
+ * @return y with x, after removing the vector with 0 in the first element or the biggest first element.
+ */
 std::vector<std::vector<double>> KNN::kNearestUpdate1(std::vector<double> x, std::vector<std::vector<double>> y) {
     y.push_back(x);
     std::sort(y.begin(), y.end(),
