@@ -14,7 +14,6 @@ private:
     int k;
     std::string distanceType;
     std::vector<std::vector<double >> classified;
-    std::vector<std::string> types;
     int numT;
 
 /**
