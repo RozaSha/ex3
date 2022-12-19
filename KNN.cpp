@@ -60,12 +60,6 @@ int KNN::runNeighbors(std::vector<double> input) {
     int y = numT;
     int numInKNearest = 0;
     std::vector<std::vector<double>> kNearest;
-    //initialize vector of k vectors of zeros. in this vector the function will keep the closest neighbors and their
-    // classification.
-    for (int j = 0; j < k; j++) {
-        std::vector<double> vec(2, 0);
-        kNearest.push_back(vec);
-    }
     std::vector<double> subVector;
     while (!classified[i].empty()) {//running over the classified vector.
         subVector = {classified[i].begin(), classified[i].end() - 1}; //sub vector without the classification.
@@ -73,7 +67,7 @@ int KNN::runNeighbors(std::vector<double> input) {
         if (dis == -1) {//the distance function return -1 if tha function attempt to divide by 0.
             continue;
         }
-        kNearest = kNearestUpdate1({dis, classified[i][x]});
+        kNearest = kNearestUpdate1({dis, classified[i][x]}, kNearest);
         i += 1;
     }
     std::vector<int> count(y, 0);
@@ -105,11 +99,9 @@ std::vector<std::vector<double>> KNN::kNearestUpdate1(std::vector<double> x, std
               [](const std::vector<double> &a, const std::vector<double> &b) {
                   return a[0] < b[0];
               });
-    if (y[0][0] == 0) {
-        y.erase(y.begin());
-        return y;
+    if (y.size() > k) {
+        y.pop_back();
     }
-    y.pop_back();
     return y;
 }
 
