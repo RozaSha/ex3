@@ -73,42 +73,7 @@ int KNN::runNeighbors(std::vector<double> input) {
         if (dis == -1) {//the distance function return -1 if tha function attempt to divide by 0.
             continue;
         }
-        if (numInKNearest == 0) {// if the array that stores the k nearest neighbors is empty.
-            kNearest[0][0] = dis;
-            kNearest[0][1] = classified[i][x];
-            numInKNearest += 1;
-        } else {
-            if (numInKNearest < k) {//if the array that stores the k nearest neighbors isn't full.
-                for (int j = 0; j < k; j++) {
-                    //the function will move the parameters that smaller than dis to the end, and insert dis in the correct spot.
-                    if (kNearest[k - j - 2][0] < dis) {
-                        kNearest[k - j - 1][0] = kNearest[k - j - 2][0];
-                        kNearest[k - j - 1][1] = kNearest[k - j - 2][1];
-                    } else {
-                        kNearest[k - j - 1][0] = dis;
-                        kNearest[k - j - 1][1] = classified[i][x];
-                        break;
-                    }
-                }
-                numInKNearest += 1;
-            } else {
-                if (dis <
-                    kNearest[0][0]) {//when the new distance smaller than the biggest distance in k nearest neighbors array.
-                    for (int j = 0; j < k; j++) {
-                        //the function will move the parameters that than dis bigger to the start, removing the biggest
-                        // number from the vector, and insert dis in the correct spot.
-                        if (kNearest[j + 1][0] > dis) {
-                            kNearest[j][0] = kNearest[j + 1][0];
-                            kNearest[j][1] = kNearest[j + 1][1];
-                        } else {
-                            kNearest[j][0] = dis;
-                            kNearest[j][1] = classified[i][x];
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+        kNearest = kNearestUpdate1({dis, classified[i][x]});
         i += 1;
     }
     std::vector<int> count(y, 0);
@@ -126,6 +91,20 @@ int KNN::runNeighbors(std::vector<double> input) {
         }
     }
     return maxIndex;
+}
+
+std::vector<std::vector<double>> KNN::kNearestUpdate1(std::vector<double> x, std::vector<std::vector<double>> y) {
+    y.push_back(x);
+    std::sort(y.begin(), y.end(),
+              [](const std::vector<double> &a, const std::vector<double> &b) {
+                  return a[0] < b[0];
+              });
+    if (y[0][0] == 0) {
+        y.erase(y.begin());
+        return y;
+    }
+    y.pop_back();
+    return y;
 }
 
 /**

@@ -33,6 +33,8 @@ private:
  */
     int runNeighbors(std::vector<double> input);
 
+    std::vector<std::vector<double>> kNearestUpdate1(std::vector<double> x, std::vector<std::vector<double>> y);
+
 public:
 
 /**
