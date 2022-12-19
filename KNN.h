@@ -33,6 +33,12 @@ private:
  */
     int runNeighbors(std::vector<double> input);
 
+/**
+ * function get vector of vectors and vector x, insert the new vector and sort x.
+ * @param x vector to insert to y.
+ * @param y vector of vectors.
+ * @return y with x, after removing the vector with 0 in the first element or the biggest first element.
+ */
     std::vector<std::vector<double>> kNearestUpdate1(std::vector<double> x, std::vector<std::vector<double>> y);
 
 public:
