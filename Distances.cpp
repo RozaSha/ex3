@@ -96,4 +96,3 @@ double Distances::manhattanDistance() {
 double Distances::euclideanDistance() {
     return minkowskiDistance(2);
 }
-
