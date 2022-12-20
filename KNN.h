@@ -13,7 +13,7 @@ class KNN {
 private:
     int k;
     std::string distanceType;
-    std::vector<std::vector<double >> classified;
+    std::vector<std::vector<double > > classified;
     int numT;
 
 /**
@@ -38,7 +38,7 @@ private:
  * @param y vector of vectors.
  * @return y with x, after removing the vector with 0 in the first element or the biggest first element.
  */
-    std::vector<std::vector<double>> kNearestUpdate1(std::vector<double> x, std::vector<std::vector<double>> y);
+    std::vector<std::vector<double> > kNearestUpdate1(std::vector<double> x, std::vector<std::vector<double> > y);
 
 public:
 
@@ -49,7 +49,7 @@ public:
  * @param classifiedK vector of classified vectors, where rhe last parameter is the classification.
  * @param numType number of possible classifications.
  */
-    KNN(int kValue, std::string disType, std::vector<std::vector<double>> classifiedK, int numType);
+    KNN(int kValue, std::string disType, std::vector<std::vector<double> > classifiedK, int numType);
 
 /**
  * the function get input from the user and calls the runNeighbors function.

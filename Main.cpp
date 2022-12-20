@@ -6,7 +6,6 @@ using namespace std;
 
 #include <iostream>
 #include <string>
-#include <experimental/filesystem>
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -38,15 +37,12 @@ int main(int argc, char *argv[]) {
 
     // making sure the csv file is valid.
     // making sure the address link to a valid csv file.
-    std::experimental::filesystem::path current_path = std::experimental::filesystem::current_path();
-    std::experimental::filesystem::path file_path = current_path / argv[2];
-    if (!std::experimental::filesystem::exists(file_path) and !std::experimental::filesystem::exists(argv[2])) {
-        std::cerr << "Error: the given classified file does not exist" << std::endl;
+    std::string filePath(argv[2]);
+    std::ifstream file(filePath);
+    if (!file.good()) {
+        std::cerr << "Error: the file '" << filePath << "' does not exist." << std::endl;
         return 1;
     }
-
-    // open csv file.
-    ifstream file(argv[2]);
 
     // Check if the file was successfully opened
     if (!file.is_open()) {
@@ -54,7 +50,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     // Create a vector of vectors to store the values
-    vector<vector<double>> values;
+    vector<vector<double> > values;
     vector<string> names; // vector that will contain all the names of the inputs.
 
     // Read the file line by line
@@ -145,7 +141,7 @@ int main(int argc, char *argv[]) {
         vector<double> v = convertStringVectortoDoubleVector(vs1);
 
         // run knn and print result.
-        cout << knni.classify(v);
+        cout << knni.classify(v) << std::endl;
 
     }
 

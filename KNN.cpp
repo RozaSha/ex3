@@ -13,7 +13,7 @@
  * @param classifiedK vector of classified vectors, where rhe last parameter is the classification.
  * @param numType number of possible classifications.
  */
-KNN::KNN(int kValue, std::string disType, std::vector<std::vector<double>> classifiedK, int numType) {
+KNN::KNN(int kValue, std::string disType, std::vector<std::vector<double> > classifiedK, int numType) {
     k = kValue;
     distanceType = disType;
     classified = classifiedK;
@@ -58,7 +58,7 @@ int KNN::runNeighbors(std::vector<double> input) {
     int x = input.size();
     int y = numT;
     int numInKNearest = 0;
-    std::vector<std::vector<double>> kNearest;
+    std::vector<std::vector<double> > kNearest;
     std::vector<double> subVector;
     while (!classified[i].empty()) {//running over the classified vector.
         subVector = {classified[i].begin(), classified[i].end() - 1}; //sub vector without the classification.
@@ -92,7 +92,7 @@ int KNN::runNeighbors(std::vector<double> input) {
  * @param y vector of vectors.
  * @return y with x, after removing the vector with 0 in the first element or the biggest first element.
  */
-std::vector<std::vector<double>> KNN::kNearestUpdate1(std::vector<double> x, std::vector<std::vector<double>> y) {
+std::vector<std::vector<double> > KNN::kNearestUpdate1(std::vector<double> x, std::vector<std::vector<double> > y) {
     y.push_back(x);
     std::sort(y.begin(), y.end(),
               [](const std::vector<double> &a, const std::vector<double> &b) {
@@ -113,5 +113,4 @@ int KNN::classify(std::vector<double> input) {
     int type = runNeighbors(input);
     return type;
 }
-
 
