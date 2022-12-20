@@ -145,11 +145,13 @@ bool inputCheck(vector<string> &vec) {
     return true;
 }
 
+double stringToDouble(const std::string &val) {
+    return std::stod(val);
+}
+
 // get a vector of string and return vector of double.
 std::vector<double> convertStringVectortoDoubleVector(const std::vector<std::string> &stringVector) {
     std::vector<double> doubleVector(stringVector.size());
-    std::transform(stringVector.begin(), stringVector.end(), doubleVector.begin(), [](const std::string &val) {
-        return stod(val);
-    });
+    std::transform(stringVector.begin(), stringVector.end(), doubleVector.begin(), [](const std::string &val){return std::stod(val);});
     return doubleVector;
 }

@@ -6,7 +6,6 @@
 #define AP_EX_2_PREPROCESS_H
 
 using namespace std;
-#include "PreProcess.h"
 #include <string>
 #include <vector>
 
