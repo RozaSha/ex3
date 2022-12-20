@@ -19,5 +19,5 @@ Then the user give the program vector of numbers. if the vector is not the right
 The program will calculate the distance between the vector recives and every vector in the class parameter. If the distance function tries to divide by zero the program skip the vector. The calculated distance and the classification is added to vector of distances sized k. The vector is sorted and if it is bigger thean k the biggest distance is deleted. 
 After calculating all the distances the program is left with k smallest distances and their classification. The program count each classification and returns 
 the one that repeat the most.
-////////////////////
+If there are 2 possible classification that apears in equal numbers in the smallest distances vector, the program will choose the one that represented by the lowar number.
 the classification is been printed to the screen and the program is waiting for another vercor to be printed by user.
