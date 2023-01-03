@@ -102,6 +102,9 @@ int main(int argc, char *argv[]) {
     file.close();
     //Creat KNN object.
     KNN knn(values);
+    //vector<double> v1 = {1, 2, 3, 4};
+    // int cl = knn.classify(v1, 6, "MAN", names.size());
+    //cout << names[cl];
     //Creating socket.
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) { perror("error creating socket"); }
@@ -121,9 +124,6 @@ int main(int argc, char *argv[]) {
     struct sockaddr_in client_sin;
     unsigned int addr_len = sizeof(client_sin);
     int client_sock;
-    vector<double> inputVector;
-    string type;
-    int k;
     while (true) {
         client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
         if (client_sock < 0) {
@@ -133,6 +133,9 @@ int main(int argc, char *argv[]) {
         int expected_data_len = sizeof(buffer);
         int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
         while (read_bytes > 0) {
+            vector<double> inputVector;
+            string type;
+            int k;
             string input = string(buffer);
             vector<std::string> vs1 = split(input, " ");
             //check if the last input is integer and assigning it to k.
@@ -168,7 +171,8 @@ int main(int argc, char *argv[]) {
             }
             inputVector = convertStringVectortoDoubleVector(vs1);
             int classified = knn.classify(inputVector, k, type, names.size());
-            int sent_bytes = send(client_sock, buffer, read_bytes, 0);
+            string finalClassification = names[classified];
+            int sent_bytes = send(client_sock, finalClassification.c_str(), read_bytes, 0);
             if (sent_bytes < 0) {
                 perror("error sending to client");
             }

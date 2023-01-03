@@ -53,21 +53,19 @@ double KNN::distance(std::vector<double> v1, std::vector<double> v2, std::string
 int KNN::runNeighbors(std::vector<double> input, int kNum, std::string disType, int numType) {
     k = kNum;
     distanceType = disType;
-    numT = numType;
     int i = 0;
     int x = input.size();
-    int y = numT;
-    int numInKNearest = 0;
+    int y = numType;
     std::vector<std::vector<double> > kNearest;
     std::vector<double> subVector;
-    while (!classified[i].empty()) {//running over the classified vector.
+    //running over the classified vector.
+    for (i = 0; i < classified.size(); i++) {
         subVector = {classified[i].begin(), classified[i].end() - 1}; //sub vector without the classification.
         double dis = distance(subVector, input, distanceType);// finding distance.
         if (dis == -1) {//the distance function return -1 if tha function attempt to divide by 0.
             continue;
         }
         kNearest = kNearestUpdate1({dis, classified[i][x]}, kNearest);
-        i += 1;
     }
     std::vector<int> count(y, 0);
     for (int j = 0; j < k; j++) {

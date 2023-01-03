@@ -34,7 +34,6 @@ private:
  * @return classification of the vector.
  */
     int runNeighbors(std::vector<double> input, int kNum, std::string disType, int numType);
-
 /**
  * function get vector of vectors and vector x, insert the new vector and sort x.
  * @param x vector to insert to y.
