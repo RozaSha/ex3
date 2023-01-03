@@ -8,16 +8,10 @@
 
 /**
  * constructor.
- * @param kValue number of k neighbors.
- * @param disType type of distance.
  * @param classifiedK vector of classified vectors, where rhe last parameter is the classification.
- * @param numType number of possible classifications.
  */
-KNN::KNN(int kValue, std::string disType, std::vector<std::vector<double> > classifiedK, int numType) {
-    k = kValue;
-    distanceType = disType;
+KNN::KNN(std::vector<std::vector<double> > classifiedK) {
     classified = classifiedK;
-    numT = numType;
 }
 
 /**
@@ -51,9 +45,15 @@ double KNN::distance(std::vector<double> v1, std::vector<double> v2, std::string
 /**
  * the function get input vector, tun over the classified vectors and return the classification of the vector.
  * @param input vector to classify.
+ * @param k number of k neighbors.
+ * @param disType type of distance.
+ * @param numType number of possible classifications.
  * @return classification of the vector.
  */
-int KNN::runNeighbors(std::vector<double> input) {
+int KNN::runNeighbors(std::vector<double> input, int kNum, std::string disType, int numType) {
+    k = kNum;
+    distanceType = disType;
+    numT = numType;
     int i = 0;
     int x = input.size();
     int y = numT;
@@ -109,8 +109,8 @@ std::vector<std::vector<double> > KNN::kNearestUpdate1(std::vector<double> x, st
  * @param input the input vector.
  * @return classification.
  */
-int KNN::classify(std::vector<double> input) {
-    int type = runNeighbors(input);
+int KNN::classify(std::vector<double> input, int kNum, std::string disType, int numType) {
+    int type = runNeighbors(input, kNum, disType, numType);
     return type;
 }
 

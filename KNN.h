@@ -13,7 +13,7 @@ class KNN {
 private:
     int k;
     std::string distanceType;
-    std::vector<std::vector<double > > classified;
+    std::vector<std::vector<double> > classified;
     int numT;
 
 /**
@@ -28,9 +28,12 @@ private:
 /**
  * the function get input vector, tun over the classified vectors and return the classification of the vector.
  * @param input vector to classify.
+ * @param k number of k neighbors.
+ * @param disType type of distance.
+ * @param numType number of possible classifications.
  * @return classification of the vector.
  */
-    int runNeighbors(std::vector<double> input);
+    int runNeighbors(std::vector<double> input, int kNum, std::string disType, int numType);
 
 /**
  * function get vector of vectors and vector x, insert the new vector and sort x.
@@ -44,19 +47,16 @@ public:
 
 /**
  * constructor.
- * @param kValue number of k neighbors.
- * @param disType type of distance.
  * @param classifiedK vector of classified vectors, where rhe last parameter is the classification.
- * @param numType number of possible classifications.
  */
-    KNN(int kValue, std::string disType, std::vector<std::vector<double> > classifiedK, int numType);
+    KNN(std::vector<std::vector<double> > classifiedK);
 
 /**
  * the function get input from the user and calls the runNeighbors function.
  * @param input the input vector.
  * @return classification.
  */
-    int classify(std::vector<double> input);
+    int classify(std::vector<double> input, int kNum, std::string disType, int numType);
 
 
 };
