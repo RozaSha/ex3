@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
     int featureNumber;
     // Create a vector of vectors to store the values
     vector<vector<double> > values;
-    vector<string> names; // vector that will contain all the names of the inputs.
+    vector<string> names; // vector that will contain all the names of the possible Classifications.
     // Read the file line by line
     string line;
     while (getline(file, line)) {
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
             names.push_back(stringVec[featureNumber]); // add new name to names
             stringVec[featureNumber] = "0"; // change name to number.
         } else {
-            for (int i = 0; i < names.size(); ++i) {
+            for (size_t i = 0; i < names.size(); ++i) {
                 if (names[i] == stringVec[featureNumber]) {
                     // name was found in the vector names
                     // Change the value of the last element in the line to i
@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
         values.push_back(lineValues);
 
         // make sure the vector we added is the same length as the first vector in the file.
-        if (featureNumber + 1 != lineValues.size()) {
+        if (featureNumber + 1 != static_cast<int>(lineValues.size())) {
             cerr << "Error: not all vectors in file are the same length. " << endl;
             return 1;
         }
@@ -102,9 +102,6 @@ int main(int argc, char *argv[]) {
     file.close();
     //Creat KNN object.
     KNN knn(values);
-    //vector<double> v1 = {1, 2, 3, 4};
-    // int cl = knn.classify(v1, 6, "MAN", names.size());
-    //cout << names[cl];
     //Creating socket.
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) { perror("error creating socket"); }
@@ -148,6 +145,14 @@ int main(int argc, char *argv[]) {
                 continue;
             }
             k = std::stoi(vs1[vs1.size() - 1]);
+            if (k > static_cast<int>(values.size())) {
+                string sendMessage = "invalid input";
+                int sent_bytes = send(client_sock, sendMessage.c_str(), read_bytes, 0);
+                if (sent_bytes < 0) {
+                    perror("error sending to client");
+                }
+                continue;
+            }
             vs1.pop_back();
             //checking if string is correct and assigning it to type.
             if (!distanceMetric(vs1[vs1.size() - 1])) {
@@ -170,8 +175,10 @@ int main(int argc, char *argv[]) {
                 continue;
             }
             inputVector = convertStringVectortoDoubleVector(vs1);
+            //classifying the input vector.
             int classified = knn.classify(inputVector, k, type, names.size());
             string finalClassification = names[classified];
+            //returning the classification to the client.
             int sent_bytes = send(client_sock, finalClassification.c_str(), read_bytes, 0);
             if (sent_bytes < 0) {
                 perror("error sending to client");

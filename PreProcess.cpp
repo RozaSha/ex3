@@ -58,7 +58,7 @@ vector<string> split(string s, string delimiter) {
 // return false if -/+ are not at the beginning of the number or added mor than once
 // return false if there are signs not digits/+/-/.
 bool inputCheck(vector<string> &vec) {
-    for (int i = 0; i < vec.size(); i++) {
+    for (int i = 0; i < static_cast<int>(vec.size()); i++) {
 
         string s = vec[i];
 

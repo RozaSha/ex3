@@ -25,7 +25,7 @@ Distances::Distances(vector<double> ve1, vector<double> ve2) {
 double Distances::canberraDistance() {
     vector<double> vec1 = v1, vec2 = v2;
     double distance = 0;
-    for (int i = 0; i < v1.size(); i++) {
+    for (size_t i = 0; i < v1.size(); i++) {
         double denominator = abs((vec1.at(i)) + 0.0) + abs((vec2.at(i) + 0.0));
         if (denominator == 0) {
             cout << "Can not divide by 0" << endl;
@@ -46,7 +46,7 @@ double Distances::canberraDistance() {
 double Distances::chebyshevDistance() {
     vector<double> vec1 = v1, vec2 = v2;
     double max = 0;
-    for (int i = 0; i < v1.size(); i++) {
+    for (size_t i = 0; i < v1.size(); i++) {
         double diff = abs((vec1.at(i) + 0.0) - (vec2.at(i) + 0.0));
         if (max < diff)
             max = diff;
@@ -65,7 +65,7 @@ double Distances::minkowskiDistance(int parameter) {
     vector<double> vec1 = v1, vec2 = v2;
     int p = parameter;
     double sum = 0;
-    for (int i = 0; i < v1.size(); i++) {
+    for (size_t i = 0; i < v1.size(); i++) {
         double diff = abs((vec1.at(i) + 0.0) - (vec2.at(i)) + 0.0);
         sum += pow(diff, p);
     }
@@ -81,7 +81,7 @@ double Distances::minkowskiDistance(int parameter) {
 double Distances::manhattanDistance() {
     vector<double> vec1 = v1, vec2 = v2;
     double sum = 0;
-    for (int i = 0; i < v1.size(); i++) {
+    for (size_t i = 0; i < v1.size(); i++) {
         sum += abs((vec1.at(i) + 0.0) - vec2.at(i));
     }
     return sum;

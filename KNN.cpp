@@ -59,7 +59,7 @@ int KNN::runNeighbors(std::vector<double> input, int kNum, std::string disType, 
     std::vector<std::vector<double> > kNearest;
     std::vector<double> subVector;
     //running over the classified vector.
-    for (i = 0; i < classified.size(); i++) {
+    for (i = 0; i < static_cast<int>(classified.size()); i++) {
         subVector = {classified[i].begin(), classified[i].end() - 1}; //sub vector without the classification.
         double dis = distance(subVector, input, distanceType);// finding distance.
         if (dis == -1) {//the distance function return -1 if tha function attempt to divide by 0.
@@ -96,7 +96,7 @@ std::vector<std::vector<double> > KNN::kNearestUpdate1(std::vector<double> x, st
               [](const std::vector<double> &a, const std::vector<double> &b) {
                   return a[0] < b[0];
               });
-    if (y.size() > k) {
+    if (static_cast<int>(y.size()) > k) {
         y.pop_back();
     }
     return y;
