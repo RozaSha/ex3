@@ -54,9 +54,7 @@ int main(int argc, char *argv[]) {
     vector<string> names; // vector that will contain all the names of the possible Classifications.
     // Read the file line by line
     string line;
-    int r = 0;
     while (getline(file, line)) {
-        r++;
         // Create a new vector to store the values in the current line
         vector<double> lineValues;
         vector<string> stringVec;
