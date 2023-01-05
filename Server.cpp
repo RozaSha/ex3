@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     }
     // making sure the second input is a positive integer and can be used for port number.
     if (!positiveInteger(argv[2])) {
-        std::cerr << "Error: first argument is not a positive integer." << std::endl;
+        std::cerr << "Error: second argument is not a positive integer." << std::endl;
         return 1;
     }
     // saving port number.
@@ -54,7 +54,9 @@ int main(int argc, char *argv[]) {
     vector<string> names; // vector that will contain all the names of the possible Classifications.
     // Read the file line by line
     string line;
+    int r = 0;
     while (getline(file, line)) {
+        r++;
         // Create a new vector to store the values in the current line
         vector<double> lineValues;
         vector<string> stringVec;
@@ -186,9 +188,5 @@ int main(int argc, char *argv[]) {
             read_bytes = recv(client_sock, buffer, expected_data_len, 0);
         }
         close(client_sock);
-        cout << "Client disconnected. Next client:" << endl;
     }
-    //Close socket.
-    close(sock);
-    return 0;
 }

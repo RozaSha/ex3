@@ -37,12 +37,12 @@ int main(int argc, char *argv[]) {
     int result = connect(sockfd, (sockaddr *) &serv_addr, sizeof(serv_addr));
     // if it could not connect exit program.
     if (result < 0) {
+
         return 1;
     }
 
     // if it could connect to server.
     // Read input from the user and send it to the server
-
     while (true) {
         std::string input;
         std::getline(std::cin, input);
@@ -85,9 +85,8 @@ int main(int argc, char *argv[]) {
             continue;
         }
         memset(buf, 0, 4096);
-        int bytes_receive = recv(sockfd, buf, 0, 4096);
+        int bytes_receive = recv(sockfd, buf, 4096, 0);
         cout << string(buf, bytes_receive) << endl;
-
     }
     return 0;
 }
