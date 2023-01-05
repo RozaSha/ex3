@@ -59,13 +59,13 @@ int main(int argc, char *argv[]) {
         // check the values we got from the user.
         // making sure the last number is a positive integer and can be used as k in knn.
         if (!positiveInteger(vs1[vs1.size() - 1])) {
-            cout << "invalid input";
+            cout << "invalid input"<< endl;
             continue;
         }
 
         // make sure the distance measurement is one of AUC, MAN, CHB, CAN, MIN.
         if (!distanceMetric(vs1[vs1.size() - 2])) {
-            cout << "invalid input";
+            cout << "invalid input"<< endl;
             continue;
         }
 
@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
         vs1.pop_back();
         // making sure all the given values are doubles.
         if (!inputCheck(vs1)) {
-            cout << "invalid input";
+            cout << "invalid input"<< endl;
             continue;
         }
 
