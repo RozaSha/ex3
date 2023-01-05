@@ -2,7 +2,7 @@
 ex3 advanced programming 2023
 How to run?
 1. Download the files.
-2. Open 2 terminal wimdows.
+2. Open 2 terminal windows.
 3. In one terminal run the command make
 4. Run the command ./server.out file port
 5. In the other terminal run the command ./client.out ip port
