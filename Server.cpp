@@ -105,7 +105,7 @@ int main(int argc, char *argv[]) {
     //Creating socket.
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) { perror("error creating socket"); }
-    struct sockaddr_in sin;
+    struct sockaddr_in sin{};
     memset(&sin, 0, sizeof(sin));
     sin.sin_family = AF_INET;
     sin.sin_addr.s_addr = INADDR_ANY;
@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
     if (listen(sock, 5) < 0) {
         perror("error listening to a socket");
     }
-    struct sockaddr_in client_sin;
+    struct sockaddr_in client_sin{};
     unsigned int addr_len = sizeof(client_sin);
     int client_sock;
     while (true) {
@@ -135,6 +135,14 @@ int main(int argc, char *argv[]) {
             int k;
             string input = string(buffer);
             vector<std::string> vs1 = split(input, " ");
+            if (static_cast<int>(vs1.size()) != static_cast<int>(values[0].size()) + 2) {
+                string sendMessage = "8 invalid input";
+                size_t sent_bytes = send(client_sock, sendMessage.c_str(), 4096, 0);
+                if (sent_bytes < 0) {
+                    perror("error sending to client");
+                }
+                break;
+            }
             //check if the last input is integer and assigning it to k.
             if (!positiveInteger(vs1[vs1.size() - 1])) {
                 string sendMessage = "4 invalid input";
