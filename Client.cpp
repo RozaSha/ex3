@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
         // check the values we got from the user.
         // making sure the last number is a positive integer and can be used as k in knn.
         if (!positiveInteger(vs1[vs1.size() - 1])) {
-            cout << "invalid input for K" << endl;
+            cout << "K: invalid input for K" << endl;
             continue;
         }
 
