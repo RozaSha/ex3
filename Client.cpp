@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
 
         // make sure the distance measurement is one of AUC, MAN, CHB, CAN, MIN.
         if (!distanceMetric(vs1[vs1.size() - 2])) {
-            cout << "invalid input" << endl;
+            cout << "metric: invalid input" << endl;
             continue;
         }
 
@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
         vs1.pop_back();
         // making sure all the given values are doubles.
         if (!inputCheck(vs1)) {
-            cout << "invalid input" << endl;
+            cout << "doubles: invalid input" << endl;
             continue;
         }
 
