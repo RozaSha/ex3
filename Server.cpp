@@ -151,7 +151,7 @@ int main(int argc, char *argv[]) {
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
-                continue;
+                break;
             }
             vs1.pop_back();
             //checking if string is correct and assigning it to type.
