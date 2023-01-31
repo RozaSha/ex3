@@ -135,7 +135,7 @@ int main(int argc, char *argv[]) {
             int k;
             string input = string(buffer);
             vector<std::string> vs1 = split(input, " ");
-            if (static_cast<int>(vs1.size()) != static_cast<int>(values[0].size()) + 2) {
+            if (static_cast<int>(vs1.size()) != static_cast<int>(values[0].size()) + 1) {
                 string sendMessage = "8 invalid input";
                 size_t sent_bytes = send(client_sock, sendMessage.c_str(), 4096, 0);
                 if (sent_bytes < 0) {
