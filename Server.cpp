@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
         }
         char buffer[4096];
         int expected_data_len = sizeof(buffer);
-        int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
+        size_t read_bytes = recv(client_sock, buffer, expected_data_len, 0);
         while (read_bytes > 0) {
             vector<double> inputVector;
             string type;
@@ -138,7 +138,7 @@ int main(int argc, char *argv[]) {
             //check if the last input is integer and assigning it to k.
             if (!positiveInteger(vs1[vs1.size() - 1])) {
                 string sendMessage = "4 invalid input";
-                int sent_bytes = send(client_sock, sendMessage.c_str(), read_bytes, 0);
+                size_t sent_bytes = send(client_sock, sendMessage.c_str(), 4096, 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
@@ -147,7 +147,7 @@ int main(int argc, char *argv[]) {
             k = std::stoi(vs1[vs1.size() - 1]);
             if (k > static_cast<int>(values.size())) {
                 string sendMessage = "5 invalid input";
-                int sent_bytes = send(client_sock, sendMessage.c_str(), read_bytes, 0);
+                size_t sent_bytes = send(client_sock, sendMessage.c_str(), read_bytes, 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
@@ -157,7 +157,7 @@ int main(int argc, char *argv[]) {
             //checking if string is correct and assigning it to type.
             if (!distanceMetric(vs1[vs1.size() - 1])) {
                 string sendMessage = "6 invalid input";
-                int sent_bytes = send(client_sock, sendMessage.c_str(), read_bytes, 0);
+                size_t sent_bytes = send(client_sock, sendMessage.c_str(), read_bytes, 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
@@ -168,7 +168,7 @@ int main(int argc, char *argv[]) {
             //checking the vector if it all double.
             if (!inputCheck(vs1)) {
                 string sendMessage = "7 invalid input";
-                int sent_bytes = send(client_sock, sendMessage.c_str(), read_bytes, 0);
+                size_t sent_bytes = send(client_sock, sendMessage.c_str(), read_bytes, 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
@@ -179,7 +179,7 @@ int main(int argc, char *argv[]) {
             int classified = knn.classify(inputVector, k, type, names.size());
             string finalClassification = names[classified];
             //returning the classification to the client.
-            int sent_bytes = send(client_sock, finalClassification.c_str(), read_bytes, 0);
+            size_t sent_bytes = send(client_sock, finalClassification.c_str(), read_bytes, 0);
             if (sent_bytes < 0) {
                 perror("error sending to client");
             }
