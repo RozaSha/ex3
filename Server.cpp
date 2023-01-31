@@ -136,14 +136,14 @@ int main(int argc, char *argv[]) {
             string input = string(buffer);
             vector<std::string> vs1 = split(input, " ");
             //check if the last input is integer and assigning it to k.
-//            if (!positiveInteger(vs1[vs1.size() - 1])) {
-//                string sendMessage = "assign to K: invalid input";
-//                int sent_bytes = send(client_sock, sendMessage.c_str(), read_bytes, 0);
-//                if (sent_bytes < 0) {
-//                    perror("error sending to client");
-//                }
-//                continue;
-//            }
+            if (!positiveInteger(vs1[vs1.size() - 1])) {
+                string sendMessage = "assign to K: invalid input";
+                int sent_bytes = send(client_sock, sendMessage.c_str(), read_bytes, 0);
+                if (sent_bytes < 0) {
+                    perror("error sending to client");
+                }
+                break;
+            }
             k = std::stoi(vs1[vs1.size() - 1]);
             if (k > static_cast<int>(values.size())) {
                 string sendMessage = "149 in server. invalid input";
@@ -161,7 +161,7 @@ int main(int argc, char *argv[]) {
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
-                continue;
+                break;
             }
             type = vs1[vs1.size() - 1];
             vs1.pop_back();
@@ -172,7 +172,7 @@ int main(int argc, char *argv[]) {
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
-                continue;
+                break;
             }
             inputVector = convertStringVectortoDoubleVector(vs1);
             //classifying the input vector.
