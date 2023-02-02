@@ -72,12 +72,12 @@ int main(int argc, char *argv[]) {
                     // name was found in the vector names
                     // Change the value of the last element in the line to i
                     stringVec[featureNumber] = std::to_string(i);
-                    continue;
+                    break;
                 }
                 if (i == names.size() - 1 and names.at(i) != stringVec[featureNumber]) {
                     names.push_back(stringVec[featureNumber]); // add new name to names
                     stringVec[featureNumber] = std::to_string((i + 1)); // change name to number.
-                    continue;
+                    break;
                 }
             }
         }
