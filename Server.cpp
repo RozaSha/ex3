@@ -135,6 +135,9 @@ int main(int argc, char *argv[]) {
             int k;
             string input = string(buffer);
             vector<std::string> vs1 = split(input, " ");
+            vs1.erase(std::find_if(vs1.rbegin(), vs1.rend(), [](int ch) {
+                return !std::isspace(ch);
+            }).base(), vs1.end());
             //check if the last input is integer and assigning it to k.
             if (!positiveInteger(vs1[vs1.size() - 1])) {
                 string sendMessage = "invalid input";
