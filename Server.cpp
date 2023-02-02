@@ -134,9 +134,11 @@ int main(int argc, char *argv[]) {
             string type;
             int k;
             string input = string(buffer);
+            cout<<input<<endl;
             vector<std::string> vs1 = split(input, " ");
             //check if the last input is integer and assigning it to k.
             if (!positiveInteger(vs1[vs1.size() - 1])) {
+                cout<<vs1[vs1.size() - 1]<<endl;
                 string sendMessage = "invalid input line 140 server";
                 int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
                 if (sent_bytes < 0) {
