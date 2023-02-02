@@ -137,7 +137,7 @@ int main(int argc, char *argv[]) {
             vector<std::string> vs1 = split(input, " ");
             //check if the last input is integer and assigning it to k.
             if (!positiveInteger(vs1[vs1.size() - 1])) {
-                string sendMessage = "invalid input";
+                string sendMessage = "invalid input line 140 server";
                 int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
@@ -146,7 +146,7 @@ int main(int argc, char *argv[]) {
             }
             k = std::stoi(vs1[vs1.size() - 1]);
             if (k > static_cast<int>(values.size())) {
-                string sendMessage = "invalid input";
+                string sendMessage = "invalid input line 149 server";
                 int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
@@ -156,7 +156,7 @@ int main(int argc, char *argv[]) {
             vs1.pop_back();
             //checking if string is correct and assigning it to type.
             if (!distanceMetric(vs1[vs1.size() - 1])) {
-                string sendMessage = "invalid input";
+                string sendMessage = "invalid input line 159 server";
                 int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
@@ -167,7 +167,7 @@ int main(int argc, char *argv[]) {
             vs1.pop_back();
             //checking if string is correct and assigning it to type.
             if (vs1.size() + 1 != values[0].size()) {
-                string sendMessage = "invalid input";
+                string sendMessage = "invalid input line 170 server";
                 int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
@@ -176,7 +176,7 @@ int main(int argc, char *argv[]) {
             }
             //checking the vector if it all double.
             if (!inputCheck(vs1)) {
-                string sendMessage = "invalid input";
+                string sendMessage = "invalid input line 179 server";
                 int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
