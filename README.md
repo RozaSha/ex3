@@ -4,8 +4,8 @@ How to run?
 1. Download the files.
 2. Open 2 terminal windows.
 3. In one terminal run the command make
-4. Run the command ./server.out file port
-5. In the other terminal run the command ./client.out ip port
+4. Run the command ./Server.out file port
+5. In the other terminal run the command ./Client.out ip port
 6. Write a vector of double numbers seperated by space as an input for classificetion, type of distance function and number k and press enter.
 7. You can repeat line 6 to classify more vectors in the same client, or repeat line 5 to classify from new client.
 7. To close client enter -1.
