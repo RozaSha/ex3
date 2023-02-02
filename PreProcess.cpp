@@ -97,7 +97,11 @@ bool inputCheck(vector<string> &vec) {
         // if there is more than 1 dot and minus number is not valid.
         if (countDots > 1 || countMinus > 1)
             return false;
-
+        
+        s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) {
+            return !std::isspace(ch);
+        }).base(), s.end());
+        
         // if there are other signs but "0123456789.-+" number is wrong or there are no correct signs.
         if (count != s.size() || count == 0) {
             return false;
