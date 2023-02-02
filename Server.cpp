@@ -134,13 +134,13 @@ int main(int argc, char *argv[]) {
             string type;
             int k;
             string input = string(buffer);
-            cout << input << endl;
+            //cout << input << endl;
             vector<std::string> vs1 = split(input, " ");
             std::string str = vs1[vs1.size() - 1];
             str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
             //check if the last input is integer and assigning it to k.
             if (!positiveInteger(str)) {
-                cout << vs1[vs1.size() - 1] << endl;
+                //cout << vs1[vs1.size() - 1] << endl;
                 string sendMessage = "invalid input";
                 int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
                 if (sent_bytes < 0) {
