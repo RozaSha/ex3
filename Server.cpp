@@ -176,7 +176,8 @@ int main(int argc, char *argv[]) {
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
-                read_bytes = -1;
+                memset(buffer, 0, sizeof(buffer));
+                read_bytes = recv(client_sock, buffer, expected_data_len, 0);
                 continue;
             }            
             //checking the vector if it all double.
