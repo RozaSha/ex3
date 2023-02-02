@@ -72,12 +72,12 @@ int main(int argc, char *argv[]) {
                     // name was found in the vector names
                     // Change the value of the last element in the line to i
                     stringVec[featureNumber] = std::to_string(i);
-                    break;
+                    continue;
                 }
                 if (i == names.size() - 1 and names.at(i) != stringVec[featureNumber]) {
                     names.push_back(stringVec[featureNumber]); // add new name to names
                     stringVec[featureNumber] = std::to_string((i + 1)); // change name to number.
-                    break;
+                    continue;
                 }
             }
         }
@@ -146,7 +146,7 @@ int main(int argc, char *argv[]) {
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
-                break;
+                continue;
             }
             k = std::stoi(str);
             if (k > static_cast<int>(values.size())) {
@@ -155,7 +155,7 @@ int main(int argc, char *argv[]) {
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
-                break;
+                continue;
             }
             vs1.pop_back();
             //checking if string is correct and assigning it to type.
@@ -165,7 +165,7 @@ int main(int argc, char *argv[]) {
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
-                break;
+                continue;
             }
             type = vs1[vs1.size() - 1];
             vs1.pop_back();
@@ -176,7 +176,7 @@ int main(int argc, char *argv[]) {
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
-                break;
+                continue;
             }
             //checking the vector if it all double.
             if (!inputCheck(vs1)) {
@@ -185,7 +185,7 @@ int main(int argc, char *argv[]) {
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
-                break;
+                continue;
             }
             inputVector = convertStringVectortoDoubleVector(vs1);
             //classifying the input vector.
