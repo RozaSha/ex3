@@ -177,7 +177,7 @@ int main(int argc, char *argv[]) {
                     perror("error sending to client");
                 }
                 read_bytes = -1;
-                continue;
+                break;
             }            
             //checking the vector if it all double.
             if (!inputCheck(vs1)) {
