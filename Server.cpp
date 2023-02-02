@@ -134,14 +134,13 @@ int main(int argc, char *argv[]) {
             string type;
             int k;
             string input = string(buffer);
-            cout<<input<<endl;
+            cout << input << endl;
             vector<std::string> vs1 = split(input, " ");
-            vs1.erase(std::find_if(vs1.rbegin(), vs1.rend(), [](int ch) {
-                return !std::isspace(ch);
-            }).base(), vs1.end());
+            std::string str = vs1[vs1.size() - 1];
+            str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
             //check if the last input is integer and assigning it to k.
-            if (!positiveInteger(vs1[vs1.size() - 1])) {
-                cout<<vs1[vs1.size() - 1]<<endl;
+            if (!positiveInteger(str)) {
+                cout << vs1[vs1.size() - 1] << endl;
                 string sendMessage = "invalid input line 140 server";
                 int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
                 if (sent_bytes < 0) {
@@ -149,7 +148,7 @@ int main(int argc, char *argv[]) {
                 }
                 break;
             }
-            k = std::stoi(vs1[vs1.size() - 1]);
+            k = std::stoi(str);
             if (k > static_cast<int>(values.size())) {
                 string sendMessage = "invalid input line 149 server";
                 int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
