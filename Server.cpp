@@ -182,7 +182,7 @@ int main(int argc, char *argv[]) {
             }
             
             if (!check){
-                continue;}
+                break;}
             
             //checking the vector if it all double.
             if (!inputCheck(vs1)) {
