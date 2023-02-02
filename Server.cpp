@@ -169,6 +169,7 @@ int main(int argc, char *argv[]) {
             }
             type = vs1[vs1.size() - 1];
             vs1.pop_back();
+            //bool check = true;
             //checking if string is correct and assigning it to type.
             if (vs1.size() + 1 != values[0].size()) {
                 string sendMessage = "invalid input line 170 server";
@@ -176,7 +177,9 @@ int main(int argc, char *argv[]) {
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
-                continue;
+                //check = false;
+                break;
+                
             }
             //checking the vector if it all double.
             if (!inputCheck(vs1)) {
