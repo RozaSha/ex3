@@ -105,7 +105,7 @@ int main(int argc, char *argv[]) {
     //Creating socket.
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) { perror("error creating socket"); }
-    struct sockaddr_in sin{};
+    struct sockaddr_in sin;
     memset(&sin, 0, sizeof(sin));
     sin.sin_family = AF_INET;
     sin.sin_addr.s_addr = INADDR_ANY;
@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
     if (listen(sock, 5) < 0) {
         perror("error listening to a socket");
     }
-    struct sockaddr_in client_sin{};
+    struct sockaddr_in client_sin;
     unsigned int addr_len = sizeof(client_sin);
     int client_sock;
     while (true) {
@@ -128,25 +128,17 @@ int main(int argc, char *argv[]) {
         }
         char buffer[4096];
         int expected_data_len = sizeof(buffer);
-        size_t read_bytes = recv(client_sock, buffer, expected_data_len, 0);
+        int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
         while (read_bytes > 0) {
             vector<double> inputVector;
             string type;
             int k;
             string input = string(buffer);
             vector<std::string> vs1 = split(input, " ");
-            if (static_cast<int>(vs1.size()) != static_cast<int>(values[0].size()) + 1) {
-                string sendMessage = "8 invalid input";
-                size_t sent_bytes = send(client_sock, sendMessage.c_str(), 4096, 0);
-                if (sent_bytes < 0) {
-                    perror("error sending to client");
-                }
-                break;
-            }
             //check if the last input is integer and assigning it to k.
             if (!positiveInteger(vs1[vs1.size() - 1])) {
-                string sendMessage = "4 invalid input";
-                size_t sent_bytes = send(client_sock, sendMessage.c_str(), 4096, 0);
+                string sendMessage = "invalid input";
+                int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
@@ -154,8 +146,8 @@ int main(int argc, char *argv[]) {
             }
             k = std::stoi(vs1[vs1.size() - 1]);
             if (k > static_cast<int>(values.size())) {
-                string sendMessage = "5 invalid input";
-                size_t sent_bytes = send(client_sock, sendMessage.c_str(), read_bytes, 0);
+                string sendMessage = "invalid input";
+                int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
@@ -164,8 +156,8 @@ int main(int argc, char *argv[]) {
             vs1.pop_back();
             //checking if string is correct and assigning it to type.
             if (!distanceMetric(vs1[vs1.size() - 1])) {
-                string sendMessage = "6 invalid input";
-                size_t sent_bytes = send(client_sock, sendMessage.c_str(), read_bytes, 0);
+                string sendMessage = "invalid input";
+                int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
@@ -173,10 +165,19 @@ int main(int argc, char *argv[]) {
             }
             type = vs1[vs1.size() - 1];
             vs1.pop_back();
+            //checking if string is correct and assigning it to type.
+            if (vs1.size() + 1 != values[0].size()) {
+                string sendMessage = "invalid input";
+                int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
+                if (sent_bytes < 0) {
+                    perror("error sending to client");
+                }
+                break;
+            }
             //checking the vector if it all double.
             if (!inputCheck(vs1)) {
-                string sendMessage = "7 invalid input";
-                size_t sent_bytes = send(client_sock, sendMessage.c_str(), read_bytes, 0);
+                string sendMessage = "invalid input";
+                int sent_bytes = send(client_sock, sendMessage.c_str(), sendMessage.size(), 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
                 }
@@ -187,10 +188,11 @@ int main(int argc, char *argv[]) {
             int classified = knn.classify(inputVector, k, type, names.size());
             string finalClassification = names[classified];
             //returning the classification to the client.
-            size_t sent_bytes = send(client_sock, finalClassification.c_str(), read_bytes, 0);
+            int sent_bytes = send(client_sock, finalClassification.c_str(), read_bytes, 0);
             if (sent_bytes < 0) {
                 perror("error sending to client");
             }
+            memset(buffer, 0, sizeof(buffer));
             read_bytes = recv(client_sock, buffer, expected_data_len, 0);
         }
         close(client_sock);
